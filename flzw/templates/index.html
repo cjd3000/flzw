@@ -27,27 +27,50 @@
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-
     <div class="container theme-showcase" role="main">
 
-      <div class="alert alert-danger" role="alert" id="response-alert" style="display:none">ohai</div>
+      <div class="alert alert-success" role="alert" id="success" style="display:none">ohai</div>
+      <div class="alert alert-danger"  role="alert" id="error" style="display:none">ohai</div>
 
       <p>
         {% for node in range(4) %} 
         <h1>{{node}}</h1>
         <p>
         <div class="btn-group btn-group-lg" role="group" aria-label="...">
+<!--
           <a href="/ctl/{{node}}/on"  class="btn btn-lg btn-default" role="button">ON</a>
           <a href="/ctl/{{node}}/off" class="btn btn-lg btn-default" role="button">OFF</a>
-        <!--
-        <button type="button" class="btn btn-lg btn-default" href="/ctl/{{node}}/on">ON</button>
-        <button type="button" class="btn btn-lg btn-default" href="/ctl/{{node}}/off">OFF</button>
-        -->
+-->    
+        <button type="button" class="btn btn-lg btn-default" onclick="trigger('/ctl/{{node}}/on')">ON</button>
+        <button type="button" class="btn btn-lg btn-default" onclick="trigger('/ctl/{{node}}/off')">OFF</button>
+        
         </div>
         <p>
         {% endfor %}
       <p>
 
     </div>
+
+    <script>
+      var trigger = function(url) {
+      var successElem = $('#success');
+      var errorElem = $('#error');
+      $.ajax(url, {
+        success: function(data, status, jqxhr) {
+        successElem.html(status);
+        successElem.show();
+        successElem.delay(2000).fadeOut(500);
+      },
+        error: function(jqxhr, status, thrown) {
+        errorElem.html(url + ": " + status + " " + jqxhr.responseText);
+        errorElem.show();
+        errorElem.delay(2000).fadeOut(500);
+      }
+      });
+      };
+    </script>
+
+
+
   </body>
 </html>
