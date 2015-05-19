@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 from .views import ctl
 
@@ -8,7 +8,7 @@ def get_app():
     app.register_blueprint(ctl.mod)
 
     @app.route('/')
-    def hi():
-        return "hello"
+    def root():
+        return render_template('index.html')
 
     return app

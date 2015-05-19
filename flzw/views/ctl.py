@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify, abort
+from flask import Blueprint, request, jsonify, abort, current_app
 
 from ..auth import requires_auth
 from ..zw import zsend
@@ -19,9 +19,19 @@ def raw():
 @mod.route('/<int:node>/on')
 @requires_auth
 def node_on(node):
-    payload = {'node': node, 'state': True}
+    return set_node(node, True)
+
+
+@mod.route('/<int:node>/off')
+@requires_auth
+def node_off(node):
+    return set_node(node, False)
+
+
+def set_node(node, state):
+    payload = {'node': node, 'state': state}
     try:
-        reply = zsend("localhost:1234", payload)
+        reply = zsend(current_app.config.get("ZHOST","localhost:1234"), payload)
         status = 200
     except Exception as e:
         reply = {'exception': e.__class__.__name__ + ": " + str(e)}

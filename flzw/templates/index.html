@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+                                   initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any
+    other head content must come *after* these tags -->
+    <title>Toggling stuff</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="{{ url_for('static', filename='css/bootstrap-theme.min.css') }}" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements
+    and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via
+    file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body role="document">
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <div class="container theme-showcase" role="main">
+
+      <div class="alert alert-danger" role="alert" id="response-alert" style="display:none">ohai</div>
+
+      <p>
+        {% for node in range(4) %} 
+        <h1>{{node}}</h1>
+        <p>
+        <div class="btn-group btn-group-lg" role="group" aria-label="...">
+          <a href="/ctl/{{node}}/on"  class="btn btn-lg btn-default" role="button">ON</a>
+          <a href="/ctl/{{node}}/off" class="btn btn-lg btn-default" role="button">OFF</a>
+        <!--
+        <button type="button" class="btn btn-lg btn-default" href="/ctl/{{node}}/on">ON</button>
+        <button type="button" class="btn btn-lg btn-default" href="/ctl/{{node}}/off">OFF</button>
+        -->
+        </div>
+        <p>
+        {% endfor %}
+      <p>
+
+    </div>
+  </body>
+</html>

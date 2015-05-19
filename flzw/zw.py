@@ -16,7 +16,7 @@ def zsend(host, mesg):
             got = socket.recv_json()
             return got
         else:
-            raise Exception("timeout")
+            raise Exception("timeout on %s" % host)
 
     finally:
         socket.close()
