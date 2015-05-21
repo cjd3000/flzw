@@ -31,7 +31,7 @@ def node_off(node):
 def set_node(node, state):
     payload = {'node': node, 'state': state}
     try:
-        reply = zsend(current_app.config.get("ZHOST","localhost:1234"), payload)
+        reply = zsend(current_app.config['ZHOST'], payload)
         status = 200
     except Exception as e:
         reply = {'exception': e.__class__.__name__ + ": " + str(e)}

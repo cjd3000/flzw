@@ -5,6 +5,7 @@ all: $(VENV) cert
 
 $(VENV):	requirements.txt
 	virtualenv $@
+	$@/bin/pip install --upgrade pip
 	$@/bin/pip install -r requirements.txt
 
 cert: cert.pem key.pem
